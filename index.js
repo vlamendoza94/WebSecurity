@@ -35,4 +35,3 @@ app.listen(SERVER_PORT, () => {
 process.on("error", (err) => {
   console.error("Erro capturaDO", err);
 });
-
