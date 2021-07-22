@@ -17,11 +17,26 @@ hbs.registerPartials(VIEW_PARTIALS);
 
 app.use(helmet());
 
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "code.jquery.com", "maxcdn.bootstrapcdn.com"],
+        styleSrc: ["'self'", "maxcdn.bootstrapcdn.com"],
+        fontSrc: ["'self'", "maxcdn.bootstrapcdn.com"],
+      },
+    },
+  })
+);
+
 app.use(requestLogger);
+
+app.use(express.json({ limit: "100kb", parameterLimit: "1000" }));
 
 app.set("views", VIEW_DIR);
 app.set("view engine", "hbs");
-
+  
 app.get("/", (req, res) => {
   res.render("home", { title: "Home page" });
 });
