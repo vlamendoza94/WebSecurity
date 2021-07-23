@@ -32,9 +32,10 @@ app.use(
 
 app.use(requestLogger);
 
+//Limitar el tamaño de los parametros
 app.use(express.json({ limit: "100kb", parameterLimit: "1000" }));
 
-app.set("views", VIEW_DIR);
+app.set("views", VIEW_DIR); 
 app.set("view engine", "hbs");
   
 app.get("/", (req, res) => {
