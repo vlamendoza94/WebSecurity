@@ -3,6 +3,7 @@ const express = require("express");
 const hbs = require("hbs");
 const path = require("path");
 const helmet = require("helmet");
+const compression = require('compression')
 
 const { logger, requestLogger, errorLogger } = require("./utils/logger");
 
@@ -37,6 +38,8 @@ app.use(
 );
 
 app.set('trust proxy', true) 
+
+app.use(compression())
 
 //Request httpLimiter
 app.use(httpLimiter)
