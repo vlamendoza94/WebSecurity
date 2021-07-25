@@ -1,0 +1,96 @@
+# vladimir.mendoza@utp.ac.pa
+# https://techexpert.tips/mysql/mysql-docker-installation/  
+docker pull mysql
+docker images
+
+docker run -d --name mysql-server -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=kamisama123" mysql
+
+
+mkdir /var/lib/mysql -p
+
+
+ls -la /var/lib/mysql
+
+
+##Tutorial MySQL - Testing the Docker installation
+Install the MySQL client package on the localhost.
+
+
+apt-get install mysql-client
+
+mysql -h 127.0.0.1 -u root -p
+
+
+
+##Creacion de Certificado SSL
+
+Add Certbot PPA
+You'll need to add the Certbot PPA to your list of repositories. To do so, run the following commands on the command line on the machine:
+
+sudo apt-get update &&
+sudo apt-get install software-properties-common &&
+sudo add-apt-repository universe &&
+sudo add-apt-repository ppa:certbot/certbot &&
+sudo apt-get update
+
+#Cooregir error de cerbot  The PPA has been DEPRECATED
+snap install certbot --classic
+
+sudo apt-get install certbot
+
+#DNS
+websecurityutp.com
+
+/var/www/html/websecurityutp
+
+
+//Instalar nginx
+sudo apt-get update
+sudo apt-get install nginx
+
+
+#Configgurar nginx para attaques ddos y slowris
+
+#permitir ssh
+ufw allow ssh
+
+#Verificar status del servidor
+ufw status
+#Activar ngnex
+ufw enable
+
+#Activar el puerto 80 http
+ufw allow http
+
+#Activar el puerto 443 http
+ufw allow https
+
+//Verificar el estatus del servidor
+
+
+
+#Configurar nginx
+sudo nano /etc/nginx/sites-available/default
+
+
+#Reiniciar servidor nginx
+ service nginx restart
+
+
+ #Configurar letsencrypt
+
+
+ sudo certbot --nginx -d websecurityutp.com -d www.websecurityutp.com
+
+
+
+
+ #Instalacion de redis
+ sudo apt install -y redis
+
+
+ #Verificar la info de redis
+ systemctl status redis
+
+ #Instalar cliente de redis
+ sudo apt install redis-tools
