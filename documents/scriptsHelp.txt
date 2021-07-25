@@ -72,6 +72,20 @@ ufw allow https
 #Configurar nginx
 sudo nano /etc/nginx/sites-available/default
 
+  libcurl4-openssl-dev 7.68.0-1ubuntu2.6
+  libcurl4-nss-dev 7.68.0-1ubuntu2.6
+  libcurl4-gnutls-dev 7.68.0-1ubuntu2.6
+configure: LUA library found at: /usr/lib/x86_64-linux-gnu//liblua5.3.so
+configure: LUA headers found at: /usr/include/lua5.3
+configure: LUA version from includes: 503
+configure: using LUA -llua5.3
+checking for libcurl config script... no
+configure: *** curl library not found.
+checking for libxml2 config script... no
+configure: *** libxml2 library not found.
+checking for libpcre config script... no
+configure: *** pcre library not found.
+configure: error: pcre library is required
 
 #Reiniciar servidor nginx
  service nginx restart
