@@ -3,11 +3,13 @@ const express = require("express");
 const hbs = require("hbs");
 const path = require("path");
 const helmet = require("helmet");
-const compression = require('compression')
+const compression = require("compression");
 
 const { logger, requestLogger, errorLogger } = require("./utils/logger");
 
-const httpLimiter = require("./middlewares/httpLimiter")
+const httpLimiter = require("./middlewares/httpLimiter");
+
+const contentPolicyDirectives = require("./config/contentPolicyDirectives")
 
 const app = express();
 
@@ -21,28 +23,21 @@ hbs.registerPartials(VIEW_PARTIALS);
 //Agregar proteccion de headers con helmet
 app.use(helmet());
 
-
-
 //configuracion de privacidad
 app.use(
   helmet({
     contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "code.jquery.com", "maxcdn.bootstrapcdn.com"],
-        styleSrc: ["'self'", "maxcdn.bootstrapcdn.com"],
-        fontSrc: ["'self'", "maxcdn.bootstrapcdn.com"],
-      },
+      directives: contentPolicyDirectives,
     },
   })
 );
 
-app.set('trust proxy', true) 
+app.set("trust proxy", true);
 
-app.use(compression())
+app.use(compression());
 
 //Request httpLimiter
-app.use(httpLimiter)
+app.use(httpLimiter);
 
 app.use(requestLogger);
 
@@ -51,6 +46,8 @@ app.use(express.json({ limit: "100kb", parameterLimit: "1000" }));
 
 app.set("views", VIEW_DIR);
 app.set("view engine", "hbs");
+
+app.use("/public", express.static(path.join(__dirname, "/public")));
 
 app.get("/", (req, res) => {
   res.render("home", { title: "Home page" });
